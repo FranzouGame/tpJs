@@ -1,0 +1,85 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TD3</title>
+    <script>
+        function monMax(a,b){
+            if (a > b) {
+                return a;
+            } else {
+                return b;
+            }
+        }
+
+        function calculer(a,b){
+            if (!typeof a === "number" || !typeof b === "number") {
+                return "Les deux arguments doivent être des nombres";
+            } else {
+                return monMax(a,b);
+            }
+        }
+
+        function calculer2(saisie1, saisie2){
+            if (!typeof saisie1 === "number" || !typeof saisie2 === "number") {
+                return "Les deux arguments doivent être des nombres";
+            } else {
+                return monMax(saisie1,saisie2);
+            }
+        }
+
+        function max4(a,b,c,d){
+            return monMax(monMax(a,b),monMax(c,d));
+        }
+        
+        function max8(a,b,c,d,e,f,g,h){
+            return monMax(max4(a,b,c,d),max4(e,f,g,h));
+        }
+
+        function random(a,b){
+            return Math.floor(Math.random() * (b - a + 1)) + a;
+        }
+
+        function petitJeu(a){
+            let r = random(1,10);
+            if (a === r) {
+                return "Bravo";
+            } else {
+                return "Perdu";
+            }
+        }
+
+        function autrePetitJeu(){
+            let r = random(1,10);
+            for (let index = 0; index < 5; index++) {
+                let a = parseInt(prompt("Entrez un nombre entre 1 et 10"), 10);
+                if (a === r) {
+                    return "Bravo";
+                } else if (a < r) {
+                    return "Trop petit";
+                } else if (a > r) {
+                    return "Trop grand";
+                }        
+            }
+            return "Perdu";
+        }
+    </script>
+</head>
+<body>
+    <h1>Exercice 3</h1>
+    <form action="#" name="f">
+        <input type="number" name="saisie1" id="saisie1">
+        <input type="number" name="saisie2" id="saisie2">
+        <input type="button" value="Calculer" onclick="alert(calculer2(document.f.saisie1.value, document.f.saisie2.value))">
+    </form>
+    <hr>
+    <h1>Exercice 8</h1>
+    <form action="#">
+        <input type="number" name="a" id="a">
+        <input type="button" value="confirmez" onclick="alert(petitJeu(document.getElementById('a').value))">
+    </form>
+
+    <h1>Exercice 9</h1>
+        <button onclick="alert(autrePetitJeu())">Jouer</button>
+</body>
+</html>

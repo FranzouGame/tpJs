@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Révision des Multiplications</title>
+    <script>
+        function verifierCalcul() {
+            let labels = document.getElementsByClassName("calcul"); 
+            let inputs = document.querySelectorAll("input[type='text']"); 
+            let score = 0; 
+
+            for (let i = 0; i < labels.length; i++) {
+                let operation = labels[i].textContent.trim();
+                let resultatAttendu = eval(operation);
+                let reponseUtilisateur = parseInt(inputs[i].value); 
+
+                if (reponseUtilisateur === resultatAttendu) {
+                    score++; 
+                }
+            }
+
+            alert("Nombre de réponses correctes : " + score + " / " + labels.length);
+        }
+    </script>
+</head>
+<body>
+    <h1>Révision des Multiplications</h1>
+    <form onsubmit="verifierCalcul(); return false;">
+        <label class="calcul">3 * 2</label>
+        <input type="text" name="resultat1">
+        <br>
+
+        <label class="calcul">6 * 7</label>
+        <input type="text" name="resultat2">
+        <br>
+
+        <label class="calcul">4 * 4</label>
+        <input type="text" name="resultat3">
+        <br>
+
+        <label class="calcul">3 * 5</label>
+        <input type="text" name="resultat4">
+        <br>
+
+        <input type="submit" value="Vérifier les résultats">
+    </form>
+</body>
+</html>

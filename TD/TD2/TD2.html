@@ -1,0 +1,43 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Écriture d'une fonction avec arguments</title>
+    <script>
+        let a = 3;
+        let b = 2;
+        let tab = [-2, 1, 4]
+
+        function multiplie(x = 8,y = 8){
+            return x*y;
+        }
+
+        function multiplie2(x){
+            for (let index = 0; index < tab.length; index++) {
+                tab[index] = tab[index]*x;
+            }
+            return tab;
+        }
+
+        function afficher(){
+            alert(multiplie(a,b));
+            alert(multiplie(b));
+        }
+
+        function afficher2(){
+            alert(multiplie2(a));
+        }
+
+        function tri(tab){
+            alert(tab.sort((a, b) => a - b));
+        }
+
+    </script>
+
+</head>
+<body>
+    <h1>Écriture d'une fonction avec arguments</h1>
+    <p>Cliquez sur le bouton pour lancer la fonction&nbsp;: <button onclick="afficher()">Lancer la fonction</button></p>
+    <p>Double cliquez sur le bouton pour lancer la fonction&nbsp;: <button ondblclick="afficher2()" onmouseover="tri(tab)">Lancer la fonction</button></p>    
+</body>
+</html>

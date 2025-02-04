@@ -1,0 +1,123 @@
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire</title>
+</head>
+<script>
+    function random() {
+        let randomNumber = Math.floor(Math.random() * 10000);
+        document.getElementById("verificationRandom").textContent = randomNumber; // Seulement le nombre
+    }
+
+    function verifierEmail() {
+        let email = document.getElementById("email").value;
+        let regex = /^[^@]+@[^@]+\.[^@]+$/; // Vérifie un seul '@' et un '.' après
+
+        if (!regex.test(email)) {
+            alert("Veuillez entrer une adresse email valide !");
+            return false; // Empêche l'envoi du formulaire
+        }
+        return true; // Autorise l'envoi du formulaire
+    }
+
+    function ajouterCategorie() {
+        let liste = document.getElementById("listeEntreprise");
+        let selectedOption = liste.value;
+
+        if (selectedOption === "Other") {
+            let nouvelleCategorie = prompt("Veuillez entrer une nouvelle catégorie (ne doit pas commencer par un chiffre) :");
+
+            // Vérifie que l'entrée n'est pas vide et ne commence pas par un chiffre
+            if (nouvelleCategorie && !/^\d/.test(nouvelleCategorie)) {
+                // Vérifie si l'option existe déjà pour éviter les doublons
+                let existe = Array.from(liste.options).some(option => option.value.toLowerCase() === nouvelleCategorie.toLowerCase());
+
+                if (!existe) {
+                    let nouvelleOption = document.createElement("option");
+                    nouvelleOption.value = nouvelleCategorie;
+                    nouvelleOption.textContent = nouvelleCategorie;
+
+                    // Ajoute la nouvelle option à la liste
+                    liste.appendChild(nouvelleOption);
+
+                    // Sélectionne automatiquement la nouvelle catégorie
+                    liste.value = nouvelleCategorie;
+                } else {
+                    alert("Cette catégorie existe déjà !");
+                }
+            } else {
+                alert("Catégorie invalide. Assurez-vous qu'elle ne commence pas par un chiffre.");
+            }
+        }
+    }
+
+    function verifierVerification() {
+        let verification = parseInt(document.getElementById("verification").value);
+        let verificationRandom = parseInt(document.getElementById("verificationRandom").textContent);
+
+        if (verification !== verificationRandom) {
+            alert("Veuillez entrer le bon code de vérification !");
+            return false;
+        }
+        return true;
+    }
+
+    function envoyerEmail() {
+        let nom = document.getElementById("name").value;
+        let email = document.getElementById("email").value;
+        let sujet = document.getElementById("subject").value;
+        let message = document.getElementById("message").value;
+        let entreprise = document.getElementById("listeEntreprise").value;
+
+        let corpsEmail = `Nom : ${nom}\nEmail : ${email}\nSujet : ${sujet}\nEntreprise : ${entreprise}\nMessage : ${message}`;
+        
+        let mailtoLink = `mailto:votre@email.com?subject=Formulaire de ${nom}&body=${encodeURIComponent(corpsEmail)}`;
+
+        window.location.href = mailtoLink; // Ouvre le client mail par défaut
+    }
+
+    function validerFormulaire(event) {
+        event.preventDefault(); // Empêche l'envoi par défaut
+
+        if (verifierEmail() && verifierVerification()) {
+            let nom = document.getElementById("name").value;
+
+            // Affiche une nouvelle fenêtre avec le message de confirmation
+            let confirmationWindow = window.open("", "_blank", "width=400,height=200");
+            confirmationWindow.document.write(`<p>Merci ${nom}, votre formulaire a été soumis avec succès !</p>`);
+
+            envoyerEmail(); // Envoie l'email via mailto
+        }
+    }
+</script>
+<body onload="random()">
+    <form action="#" onsubmit="validerFormulaire(event)">
+        <input type="text" name="name" id="name" placeholder="Name" required>
+        <input type="email" name="email" id="email" placeholder="Email" required>
+        <br>
+        <input type="text" name="subject" id="subject" placeholder="Subject" required>
+        <br>
+        <p>Code de vérification : <span id="verificationRandom"></span></p>
+        <input type="number" name="verification" placeholder="Verification" required id="verification">
+        <br>
+        <select name="listeEntreprise" id="listeEntreprise" onchange="ajouterCategorie()">
+            <option value="Smart Building">Smart Building</option>
+            <option value="Energy Management">Energy Management</option>
+            <option value="Ontology">Ontology</option>
+            <option value="Micro Grid">Micro Grid</option>
+            <option value="Other">Other</option>
+        </select>
+        <br>
+        <textarea name="message" id="message" placeholder="Message" required></textarea>
+
+        <br>
+        <input type="submit" value="Send">
+    </form>
+
+    <!-- Si JavaScript désactivé -->
+    <noscript>
+        <p style="color: red;">JavaScript est désactivé sur votre navigateur. Activez-le pour une meilleure expérience.</p>
+    </noscript>
+</body>
+</html>

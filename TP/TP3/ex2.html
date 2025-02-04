@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Filtrage IP et Domaines</title>
+    <style>
+        .window {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border: 2px solid blue;
+            background-image: url('https://images.unsplash.com/photo-1469474968028-56623f02e42e');
+            background-size: cover;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+
+    <script>
+        const data = [
+            { ip: '192.168.1.192', domain: 'example.fr' },
+            { ip: '10.0.0.1', domain: 'google.com' },
+            { ip: '172.16.0.192', domain: 'test.fr' },
+            { ip: '8.8.8.192', domain: 'autre.fr' }
+        ];
+
+        function createWindows() {
+            const container = document.getElementById('container');
+            
+            for (let i = 0; i < 10; i++) {
+                const window = document.createElement('div');
+                window.className = 'window';
+                
+                // Position aléatoire
+                const maxX = window.innerWidth - 500;
+                const maxY = window.innerHeight - 500;
+                window.style.left = `${Math.random() * maxX}px`;
+                window.style.top = `${Math.random() * maxY}px`;
+                
+                // Filtrage des données
+                const filteredData = data.filter(
+                    item => item.ip.endsWith('192') || item.domain.endsWith('.fr')
+                );
+                
+                // Contenu de la fenêtre
+                window.innerHTML = `
+                    <h2>Fenêtre ${i + 1}</h2>
+                    <div>
+                        ${filteredData.map(item => 
+                            `IP: ${item.ip}<br>Domaine: ${item.domain}<br><hr>`
+                        ).join('')}
+                    </div>
+                `;
+                
+                container.appendChild(window);
+            }
+        }
+
+        window.onload = createWindows;
+    </script>
+</body>
+</html>

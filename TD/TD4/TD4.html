@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TD4</title>
+    <script>
+        let fenetre;
+
+        function ouvrirFenetre(){
+            fenetre = window.open("https://www.google.com", "Google", "width=800, height=600,noopener=no");
+        }
+
+        function bougerFenetre() {
+            if (fenetre && !fenetre.closed) {
+                fenetre.moveBy(100, 100);
+            } else {
+                alert("Ouvrez d'abord la fenêtre !");
+            }
+        }
+
+        function genererBouton() {
+            let nombre = document.getElementsByName("nombre")[0].value;
+            let div = document.createElement("div");
+
+            for (let i = 0; i < nombre; i++) {
+                let button = document.createElement("button");
+                button.textContent = "Bouton " + (i + 1);
+                div.appendChild(button);
+            }
+
+            document.body.appendChild(div);
+        }
+
+        function remplir() {
+            let valeur = document.getElementById("valeur").value;
+            let option = document.createElement("option");
+            option.textContent = valeur;
+            option.value = valeur;
+            document.getElementById("maliste").appendChild(option);
+        }
+
+        function marquer(valeur) {
+            let liste = document.getElementById("maliste");
+
+            // Réinitialise les couleurs des options
+            for (let i = 0; i < liste.options.length; i++) {
+                liste.options[i].style.color = "black";
+            }
+
+            // Marque l'option correspondante en rouge
+            for (let i = 0; i < liste.options.length; i++) {
+                if (liste.options[i].textContent === valeur) {
+                    liste.options[i].style.color = "red";
+                }
+            }
+        }
+
+        function liste2tab(x) {
+            let liste = document.getElementById("maliste");
+            let tab = [];
+
+            for (let i = 0; i < liste.options.length; i++) {
+                tab.push(liste.options[i].textContent);
+            }
+
+            return tab;
+            
+        }
+
+        function reverse(L) {
+            return L.reverse();
+        }
+
+        function append(L, M) {
+            return L.concat(M);
+        }
+            
+        function fusion(L, M) {
+            let N = [];
+            let i = 0, j = 0;
+
+            while (i < L.length && j < M.length) {
+                if (L[i] < M[j]) {
+                    N.push(L[i]);
+                    i++;
+                } else {
+                    N.push(M[j]);
+                    j++;
+                }
+            }
+
+            // Ajoute les éléments restants de L ou M
+            while (i < L.length) {
+                N.push(L[i]);
+                i++;
+            }
+
+            while (j < M.length) {
+                N.push(M[j]);
+                j++;
+            }
+
+            return N;
+        }
+
+        let L = [1, 3, 5, 7];
+        let M = [2, 4, 6, 8];
+
+        console.log(reverse([...L]));  // [7, 5, 3, 1] (on fait [...L] pour éviter de modifier L)
+        console.log(append(L, M));      // [1, 3, 5, 7, 2, 4, 6, 8]
+        console.log(fusion(L, M));      // [1, 2, 3, 4, 5, 6, 7, 8]
+
+    </script>
+</head>
+<body>
+    <h1>Exercice 1</h1>
+    <button onclick="ouvrirFenetre()">Ouvrir une fenêtre</button>
+    <button onclick="bougerFenetre()">Bouger la fenêtre</button>
+    <hr>
+    <h1>Exercice 2</h1>
+    <p>Entrez un nombre pour générer un nombre de bouton</p>
+    <form action="#">
+        <input type="number" name="nombre">
+        <input type="submit" value="Envoyer" onclick="genererBouton(); return false;">
+    </form>
+
+    <hr>
+    <h1>Exercice 3</h1>
+    <p>Proposez une fonction javascript remplir(x) qui permet de récupérer la valeur de x et la rajouter à une liste
+        déroulante nommée « maliste ».</p>
+    <form action="#">
+        <input type="text" name="valeur" id="valeur">
+        <input type="submit" value="Envoyer" onclick="remplir(); return false;">
+        <select name="maliste" id="maliste">
+        </select>
+    </form>
+    <hr>
+    <h1>Exercice 4</h1>
+    <p>Proposez une fonction javascript marquer(x) qui permet d’afficher la valeur de x en rouge dans la liste
+        déroulante.</p>
+        <form id="marquerForm">
+            <input type="text" name="marquer" id="marquer">
+            <input type="submit" value="Envoyer">
+        </form>
+        
+        <script>
+        document.getElementById('marquerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let valeur = document.getElementById('marquer').value;
+            marquer(valeur);
+        });
+        </script>
+
+    <hr>
+
+    <h1>Exercice 5</h1>
+    <p>Proposez une fonction javascript liste2tab(x) qui permet de copier les valeurs de la liste déroulante dans un
+        tableau.</p>
+    <button onclick="alert(liste2tab(document.getElementById('maliste')))">afficher tableau de ma liste</button>
+</body>
+</html>

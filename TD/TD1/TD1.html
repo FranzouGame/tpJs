@@ -1,0 +1,118 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        //Exercice 1 à 4
+        function aireRectangle() {
+            let largeur = document.getElementById("largeur").value;
+            let longueur = document.getElementById("longueur").value;
+            console.log(longueur);
+            alert("L'aire du rectangle est de " + largeur * longueur);
+            document.createElement("p").innerHTML = "L'aire du rectangle est de " + largeur * longueur;
+        }
+
+        //Exercice 5
+        function nombreJour(){
+            let mois = document.getElementById("mois").value;
+            let annee = document.getElementById("annee").value;
+            let nbJour = 0;
+
+            switch (parseInt(mois)) {
+                case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+                    nbJour = 31;
+                    break;
+                case 4: case 6: case 9: case 11:
+                    nbJour = 30;
+                    break;
+                case 2:
+                    if (annee % 4 == 0 && annee % 100 != 0 || annee % 400 == 0) {
+                        nbJour = 29;
+                    } else {
+                        nbJour = 28;
+                    }
+                    break;
+                default:
+                    nbJour = "Mois invalide";
+            }
+
+            document.getElementById("resultatJour").innerHTML = 
+                "Le mois " + mois + " de l'année " + annee + " a " + nbJour + " jours.";
+        }
+
+        //Exercice 6
+        function tableMultiplication(){
+            let entier = parseInt(document.getElementById("entier").value);
+            if (!Number.isInteger(entier)) {
+                alert("L'entier doit être un nombre entier");
+                return;
+            }
+            if (entier < 1 || entier > 10) {
+                alert("L'entier doit être compris entre 1 et 10");
+                return;
+            }
+            let table = "";
+            for (let i = 1; i <= 10; i++) {
+                table += entier + " x " + i + " = " + entier * i + "<br>";
+            }
+            document.getElementById("resultatTable").innerHTML = table;
+        }
+
+        // Exercice 7 
+        function calculer(){
+            let expression = document.getElementById("expression").value;
+            let resultat = eval(expression);
+            document.getElementById("resultatCalcul7").innerHTML = "Le résultat de l'expression est : " + resultat;
+        }    
+
+    </script>
+</head>
+<body>
+    <!-- Exercice 1 à 4-->
+    <h1>Ecriture d'une fonction simple</h1>
+
+    <form action="#" onsubmit="aireRectangle(); return false;">
+        <label for="largeur">Largeur&nbsp;:</label>
+        <input type="text" name="largeur" id="largeur">
+        <label for="longueur">Longueur&nbsp;:</label>
+        <input type="text" name="longueur" id="longueur">
+        <input type="submit" value="Calculer">
+    </form>
+    <p id="resultatCalcul"></p>
+
+    <!-- Exercice 5-->
+
+    <h1>Calcul du nombre de jours dans un mois</h1>
+    <form action="#" onsubmit="nombreJour()">
+        <label for="mois">Mois&nbsp;:</label>
+        <input type="text" name="mois" id="mois">
+        <label for="annee">Année&nbsp;:</label>
+        <input type="text" name="annee" id="annee">
+        <input type="submit" value="Calculer">
+    </form>
+    <p id="resultatJour"></p>
+
+    <!-- Exercice 6-->
+
+    <h1>Afficher la table de multiplication d'un entier compris entre 1 et 10</h1>
+    <form action="#" onsubmit="tableMultiplication()">
+        <label for="entier">Entier&nbsp;:</label>
+        <input type="number" name="entier" id="entier">
+        <input type="submit" value="Calculer">
+    </form>
+    <p id="resultatTable"></p>
+    
+    <!-- Exercice 7-->
+
+    <h1>Effectuer un calcul depuis une zone de saisie</h1>
+
+    <form action="#" onsubmit="calculer(); return false;">
+        <label for="expression">Expression&nbsp;:</label>
+        <input type="text" name="expression" id="expression">
+        <input type="submit" value="Calculer">
+    </form>
+    <textarea id="resultatCalcul7"></textarea>
+
+</body>
+</html>

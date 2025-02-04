@@ -1,0 +1,73 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TP de JavaScript</title>
+    <script>
+        let tab = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+
+        function afficherJoursJoin() {
+            document.getElementById("jours").innerHTML = tab.join(" ; ");
+        }
+
+        function afficherJoursFor(){
+            document.getElementById("jours").innerHTML = "";
+            for (let index = 0; index < tab.length; index++) {
+                document.getElementById("jours").innerHTML += "Jour " + index + ":" + tab[index] + " ; " + "<br>";
+            }
+        }
+        
+        function somRec(i) {
+            if (i == 0) {
+                return 0;
+            } else if (!Number.isInteger(i)) {
+                return "L'entier doit être un nombre entier";
+            } else if (i < 0) {
+                return "L'entier doit être positif";   
+            } else{
+                return i + somRec(i - 1);
+            }
+        }
+
+        function somFor(i) {
+            let somme = 0;
+            for (let index = 0; index <= i; index++) {
+                somme += index;
+            }
+            return somme;
+        }
+
+        function demanderNombre(){
+            let nombre = parseInt(prompt("Entrez un nombre entier positif"));
+            if (nombre == null) {
+                return;
+            }
+            alert(somRec(nombre));
+        }
+
+        function afficherInfo(){
+            let navigateur = navigator.userAgent;
+            let docTitre = document.title;
+            let lastModificationDate = document.lastModified;
+            document.getElementById("info").innerHTML = "Navigateur : " + navigateur + "<br>" + "Titre de la page : " + docTitre + "<br>" + "Date de dernière modification : " + lastModificationDate;
+        }
+    </script>
+</head>
+<body>
+    <h1>Exercice 1</h1>
+    <button onclick="afficherJoursJoin()">Afficher les jours avec join</button>
+    <button onclick="afficherJoursFor()">Afficher les jours avec for</button>
+    <p id="jours"></p>
+
+    <hr>
+    <h1>Exercice 2</h1>
+    <button onclick="alert(somRec(5))">Calculer la somme récursive</button>
+    <button onclick="alert(somFor(5))">Calculer la somme avec une boucle for</button>
+    <button onclick="demanderNombre()">Demander un nombre</button>
+
+    <hr>
+    <h1>Exercice 3</h1>
+    <button onclick="afficherInfo()">Afficher les informations</button>
+    <p id="info"></p>
+</body>
+</html>

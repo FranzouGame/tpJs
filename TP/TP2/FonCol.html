@@ -1,0 +1,36 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fond de couleur</title>
+    <script>
+        function changerCouleur() {
+            let couleur = document.querySelector("select").value;
+            switch (couleur){
+                case "Gris":
+                    document.body.style.backgroundColor = "#C0C0C0";
+                    break;
+                case "Bleu":
+                    document.body.style.backgroundColor = "#669999";
+                    break;
+                case "Vert":
+                    document.body.style.backgroundColor = "#99FF66";
+                    break;
+                default:
+                    break;
+            }
+        }
+    </script>
+</head>
+<body>
+     <h1>Changez de couleur</h1>
+     <form action="#">
+        <select>
+            <option value="Gris">Gris</option>
+            <option value="Bleu">Bleu</option>
+            <option value="Vert">Vert</option>
+        </select>
+        <input type="button" value="Changer de couleur" onclick="changerCouleur()">
+     </form>   
+</body>
+</html>
