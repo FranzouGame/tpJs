@@ -4,17 +4,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fond de couleur</title>
     <script>
+        // Fonction qui change la couleur de fond de la page
         function changerCouleur() {
+            // Récupère la valeur sélectionnée dans la liste déroulante
             let couleur = document.querySelector("select").value;
+            
+            // Change la couleur de fond selon la sélection
             switch (couleur){
                 case "Gris":
-                    document.body.style.backgroundColor = "#C0C0C0";
+                    document.body.style.backgroundColor = "#C0C0C0";  // Gris clair
                     break;
                 case "Bleu":
-                    document.body.style.backgroundColor = "#669999";
+                    document.body.style.backgroundColor = "#669999";  // Bleu-gris
                     break;
                 case "Vert":
-                    document.body.style.backgroundColor = "#99FF66";
+                    document.body.style.backgroundColor = "#99FF66";  // Vert clair
                     break;
                 default:
                     break;
@@ -24,12 +28,15 @@
 </head>
 <body>
      <h1>Changez de couleur</h1>
+     <!-- Formulaire avec liste déroulante et bouton -->
      <form action="#">
         <select>
+            <!-- Options de couleurs disponibles -->
             <option value="Gris">Gris</option>
             <option value="Bleu">Bleu</option>
             <option value="Vert">Vert</option>
         </select>
+        <!-- Bouton qui déclenche le changement de couleur -->
         <input type="button" value="Changer de couleur" onclick="changerCouleur()">
      </form>   
 </body>

@@ -5,28 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Révision des Multiplications</title>
     <script>
+        // Fonction qui vérifie les réponses et calcule le score
         function verifierCalcul() {
+            // Récupère tous les labels contenant les calculs
             let labels = document.getElementsByClassName("calcul"); 
+            // Récupère tous les champs de réponse
             let inputs = document.querySelectorAll("input[type='text']"); 
             let score = 0; 
 
+            // Vérifie chaque réponse
             for (let i = 0; i < labels.length; i++) {
+                // Extrait l'opération du label
                 let operation = labels[i].textContent.trim();
+                // Calcule le résultat attendu (Attention: eval() n'est pas recommandé en production)
                 let resultatAttendu = eval(operation);
+                // Récupère la réponse de l'utilisateur
                 let reponseUtilisateur = parseInt(inputs[i].value); 
 
+                // Incrémente le score si la réponse est correcte
                 if (reponseUtilisateur === resultatAttendu) {
                     score++; 
                 }
             }
 
+            // Affiche le score final
             alert("Nombre de réponses correctes : " + score + " / " + labels.length);
         }
     </script>
 </head>
 <body>
     <h1>Révision des Multiplications</h1>
+    <!-- Formulaire contenant les exercices de multiplication -->
     <form onsubmit="verifierCalcul(); return false;">
+        <!-- Série de multiplications à résoudre -->
         <label class="calcul">3 * 2</label>
         <input type="text" name="resultat1">
         <br>
@@ -43,6 +54,7 @@
         <input type="text" name="resultat4">
         <br>
 
+        <!-- Bouton pour soumettre les réponses -->
         <input type="submit" value="Vérifier les résultats">
     </form>
 </body>

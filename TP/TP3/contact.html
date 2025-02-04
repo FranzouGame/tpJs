@@ -1,96 +1,102 @@
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire</title>
-</head>
-<script>
-    function random() {
-        let randomNumber = Math.floor(Math.random() * 10000);
-        document.getElementById("verificationRandom").textContent = randomNumber; // Seulement le nombre
-    }
-
-    function verifierEmail() {
-        let email = document.getElementById("email").value;
-        let regex = /^[^@]+@[^@]+\.[^@]+$/; // Vérifie un seul '@' et un '.' après
-
-        if (!regex.test(email)) {
-            alert("Veuillez entrer une adresse email valide !");
-            return false; // Empêche l'envoi du formulaire
+    <script>
+        // Génère un code de vérification aléatoire
+        function random() {
+            let randomNumber = Math.floor(Math.random() * 10000);
+            document.getElementById("verificationRandom").textContent = randomNumber;
         }
-        return true; // Autorise l'envoi du formulaire
-    }
 
-    function ajouterCategorie() {
-        let liste = document.getElementById("listeEntreprise");
-        let selectedOption = liste.value;
+        // Vérifie le format de l'email
+        function verifierEmail() {
+            let email = document.getElementById("email").value;
+            let regex = /^[^@]+@[^@]+\.[^@]+$/; // Regex pour vérifier format email
 
-        if (selectedOption === "Other") {
-            let nouvelleCategorie = prompt("Veuillez entrer une nouvelle catégorie (ne doit pas commencer par un chiffre) :");
+            if (!regex.test(email)) {
+                alert("Veuillez entrer une adresse email valide !");
+                return false;
+            }
+            return true;
+        }
 
-            // Vérifie que l'entrée n'est pas vide et ne commence pas par un chiffre
-            if (nouvelleCategorie && !/^\d/.test(nouvelleCategorie)) {
-                // Vérifie si l'option existe déjà pour éviter les doublons
-                let existe = Array.from(liste.options).some(option => option.value.toLowerCase() === nouvelleCategorie.toLowerCase());
+        // Ajoute une nouvelle catégorie à la liste
+        function ajouterCategorie() {
+            let liste = document.getElementById("listeEntreprise");
+            let selectedOption = liste.value;
 
-                if (!existe) {
-                    let nouvelleOption = document.createElement("option");
-                    nouvelleOption.value = nouvelleCategorie;
-                    nouvelleOption.textContent = nouvelleCategorie;
+            if (selectedOption === "Other") {
+                let nouvelleCategorie = prompt("Veuillez entrer une nouvelle catégorie :");
 
-                    // Ajoute la nouvelle option à la liste
-                    liste.appendChild(nouvelleOption);
+                // Vérifie la validité de la nouvelle catégorie
+                if (nouvelleCategorie && !/^\d/.test(nouvelleCategorie)) {
+                    // Vérifie les doublons
+                    let existe = Array.from(liste.options).some(
+                        option => option.value.toLowerCase() === nouvelleCategorie.toLowerCase()
+                    );
 
-                    // Sélectionne automatiquement la nouvelle catégorie
-                    liste.value = nouvelleCategorie;
+                    if (!existe) {
+                        // Ajoute la nouvelle option
+                        let nouvelleOption = document.createElement("option");
+                        nouvelleOption.value = nouvelleCategorie;
+                        nouvelleOption.textContent = nouvelleCategorie;
+                        liste.appendChild(nouvelleOption);
+                        liste.value = nouvelleCategorie;
+                    } else {
+                        alert("Cette catégorie existe déjà !");
+                    }
                 } else {
-                    alert("Cette catégorie existe déjà !");
+                    alert("Catégorie invalide.");
                 }
-            } else {
-                alert("Catégorie invalide. Assurez-vous qu'elle ne commence pas par un chiffre.");
             }
         }
-    }
 
-    function verifierVerification() {
-        let verification = parseInt(document.getElementById("verification").value);
-        let verificationRandom = parseInt(document.getElementById("verificationRandom").textContent);
+        // Vérifie le code de vérification
+        function verifierVerification() {
+            let verification = parseInt(document.getElementById("verification").value);
+            let verificationRandom = parseInt(document.getElementById("verificationRandom").textContent);
 
-        if (verification !== verificationRandom) {
-            alert("Veuillez entrer le bon code de vérification !");
-            return false;
+            if (verification !== verificationRandom) {
+                alert("Code de vérification incorrect !");
+                return false;
+            }
+            return true;
         }
-        return true;
-    }
 
-    function envoyerEmail() {
-        let nom = document.getElementById("name").value;
-        let email = document.getElementById("email").value;
-        let sujet = document.getElementById("subject").value;
-        let message = document.getElementById("message").value;
-        let entreprise = document.getElementById("listeEntreprise").value;
-
-        let corpsEmail = `Nom : ${nom}\nEmail : ${email}\nSujet : ${sujet}\nEntreprise : ${entreprise}\nMessage : ${message}`;
-        
-        let mailtoLink = `mailto:votre@email.com?subject=Formulaire de ${nom}&body=${encodeURIComponent(corpsEmail)}`;
-
-        window.location.href = mailtoLink; // Ouvre le client mail par défaut
-    }
-
-    function validerFormulaire(event) {
-        event.preventDefault(); // Empêche l'envoi par défaut
-
-        if (verifierEmail() && verifierVerification()) {
+        // Prépare et envoie l'email
+        function envoyerEmail() {
+            // Récupère toutes les données du formulaire
             let nom = document.getElementById("name").value;
+            let email = document.getElementById("email").value;
+            let sujet = document.getElementById("subject").value;
+            let message = document.getElementById("message").value;
+            let entreprise = document.getElementById("listeEntreprise").value;
 
-            // Affiche une nouvelle fenêtre avec le message de confirmation
-            let confirmationWindow = window.open("", "_blank", "width=400,height=200");
-            confirmationWindow.document.write(`<p>Merci ${nom}, votre formulaire a été soumis avec succès !</p>`);
+            // Prépare le corps de l'email
+            let corpsEmail = `Nom : ${nom}\nEmail : ${email}\nSujet : ${sujet}\nEntreprise : ${entreprise}\nMessage : ${message}`;
+            let mailtoLink = `mailto:votre@email.com?subject=Formulaire de ${nom}&body=${encodeURIComponent(corpsEmail)}`;
 
-            envoyerEmail(); // Envoie l'email via mailto
+            // Ouvre le client mail
+            window.location.href = mailtoLink;
         }
-    }
-</script>
+
+        // Valide le formulaire avant envoi
+        function validerFormulaire(event) {
+            event.preventDefault();
+
+            if (verifierEmail() && verifierVerification()) {
+                let nom = document.getElementById("name").value;
+                // Affiche confirmation
+                let confirmationWindow = window.open("", "_blank", "width=400,height=200");
+                confirmationWindow.document.write(`<p>Merci ${nom}, formulaire soumis avec succès !</p>`);
+                envoyerEmail();
+            }
+        }
+    </script>
+</head>
 <body onload="random()">
     <form action="#" onsubmit="validerFormulaire(event)">
         <input type="text" name="name" id="name" placeholder="Name" required>

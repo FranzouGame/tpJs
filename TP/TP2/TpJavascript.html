@@ -4,12 +4,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TP de JavaScript</title>
     <script>
+        // Tableau des jours de la semaine
         let tab = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
 
+        // Affiche les jours avec la méthode join
         function afficherJoursJoin() {
             document.getElementById("jours").innerHTML = tab.join(" ; ");
         }
 
+        // Affiche les jours avec une boucle for
         function afficherJoursFor(){
             document.getElementById("jours").innerHTML = "";
             for (let index = 0; index < tab.length; index++) {
@@ -17,6 +20,7 @@
             }
         }
         
+        // Calcule la somme des entiers de 0 à i de manière récursive
         function somRec(i) {
             if (i == 0) {
                 return 0;
@@ -29,6 +33,7 @@
             }
         }
 
+        // Calcule la somme des entiers de 0 à i avec une boucle
         function somFor(i) {
             let somme = 0;
             for (let index = 0; index <= i; index++) {
@@ -37,6 +42,7 @@
             return somme;
         }
 
+        // Demande un nombre à l'utilisateur et calcule sa somme
         function demanderNombre(){
             let nombre = parseInt(prompt("Entrez un nombre entier positif"));
             if (nombre == null) {
@@ -45,26 +51,33 @@
             alert(somRec(nombre));
         }
 
+        // Affiche les informations sur le navigateur et le document
         function afficherInfo(){
             let navigateur = navigator.userAgent;
             let docTitre = document.title;
             let lastModificationDate = document.lastModified;
-            document.getElementById("info").innerHTML = "Navigateur : " + navigateur + "<br>" + "Titre de la page : " + docTitre + "<br>" + "Date de dernière modification : " + lastModificationDate;
+            document.getElementById("info").innerHTML = 
+                "Navigateur : " + navigateur + "<br>" + 
+                "Titre de la page : " + docTitre + "<br>" + 
+                "Date de dernière modification : " + lastModificationDate;
         }
     </script>
 </head>
 <body>
+    <!-- Section pour l'affichage des jours -->
     <h1>Exercice 1</h1>
     <button onclick="afficherJoursJoin()">Afficher les jours avec join</button>
     <button onclick="afficherJoursFor()">Afficher les jours avec for</button>
     <p id="jours"></p>
 
+    <!-- Section pour les calculs de somme -->
     <hr>
     <h1>Exercice 2</h1>
     <button onclick="alert(somRec(5))">Calculer la somme récursive</button>
     <button onclick="alert(somFor(5))">Calculer la somme avec une boucle for</button>
     <button onclick="demanderNombre()">Demander un nombre</button>
 
+    <!-- Section pour les informations système -->
     <hr>
     <h1>Exercice 3</h1>
     <button onclick="afficherInfo()">Afficher les informations</button>

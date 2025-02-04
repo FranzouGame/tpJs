@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TD4</title>
     <script>
+        // Variable globale pour stocker la référence de la fenêtre popup
         let fenetre;
 
+        // Fonction pour ouvrir une nouvelle fenêtre Google
         function ouvrirFenetre(){
             fenetre = window.open("https://www.google.com", "Google", "width=800, height=600,noopener=no");
         }
 
+        // Fonction pour déplacer la fenêtre de 100px en diagonale
         function bougerFenetre() {
             if (fenetre && !fenetre.closed) {
                 fenetre.moveBy(100, 100);
@@ -19,10 +22,12 @@
             }
         }
 
+        // Fonction pour générer dynamiquement des boutons
         function genererBouton() {
             let nombre = document.getElementsByName("nombre")[0].value;
             let div = document.createElement("div");
 
+            // Crée le nombre spécifié de boutons
             for (let i = 0; i < nombre; i++) {
                 let button = document.createElement("button");
                 button.textContent = "Bouton " + (i + 1);
@@ -32,6 +37,7 @@
             document.body.appendChild(div);
         }
 
+        // Fonction pour ajouter une option à la liste déroulante
         function remplir() {
             let valeur = document.getElementById("valeur").value;
             let option = document.createElement("option");
@@ -40,6 +46,7 @@
             document.getElementById("maliste").appendChild(option);
         }
 
+        // Fonction pour marquer une option en rouge dans la liste
         function marquer(valeur) {
             let liste = document.getElementById("maliste");
 
@@ -56,6 +63,7 @@
             }
         }
 
+        // Fonction pour convertir la liste déroulante en tableau
         function liste2tab(x) {
             let liste = document.getElementById("maliste");
             let tab = [];
@@ -65,21 +73,24 @@
             }
 
             return tab;
-            
         }
 
+        // Fonction pour inverser un tableau
         function reverse(L) {
             return L.reverse();
         }
 
+        // Fonction pour concaténer deux tableaux
         function append(L, M) {
             return L.concat(M);
         }
             
+        // Fonction pour fusionner deux tableaux triés
         function fusion(L, M) {
             let N = [];
             let i = 0, j = 0;
 
+            // Fusionne les tableaux en ordre croissant
             while (i < L.length && j < M.length) {
                 if (L[i] < M[j]) {
                     N.push(L[i]);
@@ -104,20 +115,24 @@
             return N;
         }
 
+        // Tableaux de test
         let L = [1, 3, 5, 7];
         let M = [2, 4, 6, 8];
 
+        // Tests des fonctions de manipulation de tableaux
         console.log(reverse([...L]));  // [7, 5, 3, 1] (on fait [...L] pour éviter de modifier L)
-        console.log(append(L, M));      // [1, 3, 5, 7, 2, 4, 6, 8]
-        console.log(fusion(L, M));      // [1, 2, 3, 4, 5, 6, 7, 8]
-
+        console.log(append(L, M));     // [1, 3, 5, 7, 2, 4, 6, 8]
+        console.log(fusion(L, M));     // [1, 2, 3, 4, 5, 6, 7, 8]
     </script>
 </head>
 <body>
+    <!-- Exercice 1 : Manipulation de fenêtres -->
     <h1>Exercice 1</h1>
     <button onclick="ouvrirFenetre()">Ouvrir une fenêtre</button>
     <button onclick="bougerFenetre()">Bouger la fenêtre</button>
     <hr>
+
+    <!-- Exercice 2 : Génération dynamique de boutons -->
     <h1>Exercice 2</h1>
     <p>Entrez un nombre pour générer un nombre de bouton</p>
     <form action="#">
@@ -125,6 +140,7 @@
         <input type="submit" value="Envoyer" onclick="genererBouton(); return false;">
     </form>
 
+    <!-- Exercice 3 : Manipulation de liste déroulante -->
     <hr>
     <h1>Exercice 3</h1>
     <p>Proposez une fonction javascript remplir(x) qui permet de récupérer la valeur de x et la rajouter à une liste
@@ -135,25 +151,19 @@
         <select name="maliste" id="maliste">
         </select>
     </form>
+
+    <!-- Exercice 4 : Marquage d'éléments dans la liste -->
     <hr>
     <h1>Exercice 4</h1>
-    <p>Proposez une fonction javascript marquer(x) qui permet d’afficher la valeur de x en rouge dans la liste
+    <p>Proposez une fonction javascript marquer(x) qui permet d'afficher la valeur de x en rouge dans la liste
         déroulante.</p>
-        <form id="marquerForm">
-            <input type="text" name="marquer" id="marquer">
-            <input type="submit" value="Envoyer">
-        </form>
-        
-        <script>
-        document.getElementById('marquerForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            let valeur = document.getElementById('marquer').value;
-            marquer(valeur);
-        });
-        </script>
+    <form id="marquerForm">
+        <input type="text" name="marquer" id="marquer">
+        <input type="submit" value="Envoyer">
+    </form>
 
+    <!-- Exercice 5 : Conversion liste vers tableau -->
     <hr>
-
     <h1>Exercice 5</h1>
     <p>Proposez une fonction javascript liste2tab(x) qui permet de copier les valeurs de la liste déroulante dans un
         tableau.</p>

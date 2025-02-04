@@ -3,21 +3,24 @@
 <head>
     <title>Filtrage IP et Domaines</title>
     <style>
+        /* Style pour les fenêtres flottantes */
         .window {
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            border: 2px solid blue;
+            position: absolute;          /* Positionnement absolu pour le placement libre */
+            width: 500px;               /* Largeur fixe des fenêtres */
+            height: 500px;              /* Hauteur fixe des fenêtres */
+            border: 2px solid blue;     /* Bordure bleue pour délimiter les fenêtres */
             background-image: url('https://images.unsplash.com/photo-1469474968028-56623f02e42e');
-            background-size: cover;
-            overflow: auto;
+            background-size: cover;      /* L'image couvre toute la fenêtre */
+            overflow: auto;             /* Ajoute une barre de défilement si nécessaire */
         }
     </style>
 </head>
 <body>
+    <!-- Conteneur principal pour toutes les fenêtres -->
     <div id="container"></div>
 
     <script>
+        // Données de test : tableau d'objets contenant des IPs et domaines
         const data = [
             { ip: '192.168.1.192', domain: 'example.fr' },
             { ip: '10.0.0.1', domain: 'google.com' },
@@ -25,25 +28,30 @@
             { ip: '8.8.8.192', domain: 'autre.fr' }
         ];
 
+        // Fonction principale pour créer les fenêtres
         function createWindows() {
             const container = document.getElementById('container');
             
+            // Crée 10 fenêtres
             for (let i = 0; i < 10; i++) {
+                // Création de l'élément div pour la fenêtre
                 const window = document.createElement('div');
                 window.className = 'window';
                 
-                // Position aléatoire
-                const maxX = window.innerWidth - 500;
-                const maxY = window.innerHeight - 500;
+                // Calcul d'une position aléatoire pour la fenêtre
+                const maxX = window.innerWidth - 500;  // Limite horizontale
+                const maxY = window.innerHeight - 500; // Limite verticale
                 window.style.left = `${Math.random() * maxX}px`;
                 window.style.top = `${Math.random() * maxY}px`;
                 
-                // Filtrage des données
+                // Filtre les données selon les critères :
+                // - IP se terminant par '192'
+                // - OU domaine se terminant par '.fr'
                 const filteredData = data.filter(
                     item => item.ip.endsWith('192') || item.domain.endsWith('.fr')
                 );
                 
-                // Contenu de la fenêtre
+                // Génère le contenu HTML de la fenêtre
                 window.innerHTML = `
                     <h2>Fenêtre ${i + 1}</h2>
                     <div>
@@ -53,10 +61,12 @@
                     </div>
                 `;
                 
+                // Ajoute la fenêtre au conteneur
                 container.appendChild(window);
             }
         }
 
+        // Exécute la création des fenêtres au chargement de la page
         window.onload = createWindows;
     </script>
 </body>

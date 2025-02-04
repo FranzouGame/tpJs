@@ -3,28 +3,35 @@
 <head>
     <title>Image Carousel</title>
     <style>
+        /* Style du conteneur principal du carousel */
         #carousel {
-            width: 800px;
-            height: 500px;
-            position: relative;
-            overflow: hidden;
-            margin: 0 auto;
+            width: 800px;               /* Largeur fixe du carousel */
+            height: 500px;              /* Hauteur fixe du carousel */
+            position: relative;         /* Pour le positionnement des images */
+            overflow: hidden;           /* Cache les images débordantes */
+            margin: 0 auto;            /* Centre le carousel horizontalement */
         }
+
+        /* Style des images dans le carousel */
         #carousel img {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: opacity 0.5s ease;
-            opacity: 0;
+            position: absolute;         /* Positionnement absolu dans le carousel */
+            width: 100%;               /* Occupe toute la largeur */
+            height: 100%;              /* Occupe toute la hauteur */
+            object-fit: cover;         /* Redimensionne l'image en gardant les proportions */
+            transition: opacity 0.5s ease; /* Animation de transition */
+            opacity: 0;                /* Images invisibles par défaut */
         }
+
+        /* Style de l'image active */
         #carousel img.active {
-            opacity: 1;
+            opacity: 1;                /* Image active visible */
         }
     </style>
 </head>
 <body>
+    <!-- Conteneur du carousel avec 5 images -->
     <div id="carousel">
+        <!-- Images chargées depuis picsum.photos avec des IDs aléatoires -->
         <img src="https://picsum.photos/800/500?random=1">
         <img src="https://picsum.photos/800/500?random=2">
         <img src="https://picsum.photos/800/500?random=3">
@@ -33,29 +40,39 @@
     </div>
 
     <script>
+        // Récupération des éléments du DOM
         const carousel = document.getElementById('carousel');
         const images = carousel.getElementsByTagName('img');
         let currentIndex = 0;
 
+        // Active la première image au chargement
         images[0].classList.add('active');
 
+        // Fonction pour passer à l'image suivante
         function advanceCarousel() {
+            // Désactive l'image courante
             images[currentIndex].classList.remove('active');
+            // Calcule l'index de la prochaine image (boucle si nécessaire)
             currentIndex = (currentIndex + 1) % images.length;
+            // Active la nouvelle image
             images[currentIndex].classList.add('active');
         }
+
+        // Démarre le défilement automatique (toutes les 3 secondes)
         let autoAdvance = setInterval(advanceCarousel, 3000);
 
+        // Gestion du clic sur le carousel
         carousel.addEventListener('click', () => {
-            clearInterval(autoAdvance);
-            advanceCarousel();
-            autoAdvance = setInterval(advanceCarousel, 3000);
+            clearInterval(autoAdvance);  // Arrête le défilement automatique
+            advanceCarousel();          // Change l'image
+            autoAdvance = setInterval(advanceCarousel, 3000);  // Redémarre le défilement
         });
 
+        // Gestion de la molette de la souris
         carousel.addEventListener('wheel', (e) => {
-            clearInterval(autoAdvance);
-            advanceCarousel();
-            autoAdvance = setInterval(advanceCarousel, 3000);
+            clearInterval(autoAdvance);  // Arrête le défilement automatique
+            advanceCarousel();          // Change l'image
+            autoAdvance = setInterval(advanceCarousel, 3000);  // Redémarre le défilement
         });
     </script>
 </body>

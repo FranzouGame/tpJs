@@ -1,32 +1,39 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script type="text/javascript">
-        //Exercice 1 à 4
+        //Exercice 1 à 4 - Calcul de l'aire d'un rectangle
         function aireRectangle() {
+            // Récupération des valeurs saisies par l'utilisateur
             let largeur = document.getElementById("largeur").value;
             let longueur = document.getElementById("longueur").value;
             console.log(longueur);
+            // Affichage du résultat dans une alerte
             alert("L'aire du rectangle est de " + largeur * longueur);
+            // Création d'un paragraphe pour afficher le résultat (attention: cette ligne ne fonctionne pas correctement)
             document.createElement("p").innerHTML = "L'aire du rectangle est de " + largeur * longueur;
         }
 
-        //Exercice 5
+        //Exercice 5 - Calcul du nombre de jours dans un mois
         function nombreJour(){
+            // Récupération du mois et de l'année
             let mois = document.getElementById("mois").value;
             let annee = document.getElementById("annee").value;
             let nbJour = 0;
 
+            // Détermination du nombre de jours selon le mois
             switch (parseInt(mois)) {
                 case 1: case 3: case 5: case 7: case 8: case 10: case 12:
-                    nbJour = 31;
+                    nbJour = 31; // Mois avec 31 jours
                     break;
                 case 4: case 6: case 9: case 11:
-                    nbJour = 30;
+                    nbJour = 30; // Mois avec 30 jours
                     break;
                 case 2:
+                    // Gestion des années bissextiles pour février
                     if (annee % 4 == 0 && annee % 100 != 0 || annee % 400 == 0) {
                         nbJour = 29;
                     } else {
@@ -37,39 +44,48 @@
                     nbJour = "Mois invalide";
             }
 
+            // Affichage du résultat
             document.getElementById("resultatJour").innerHTML = 
                 "Le mois " + mois + " de l'année " + annee + " a " + nbJour + " jours.";
         }
 
-        //Exercice 6
+        //Exercice 6 - Table de multiplication
         function tableMultiplication(){
+            // Récupération et validation de l'entier
             let entier = parseInt(document.getElementById("entier").value);
+            // Vérification que c'est bien un nombre entier
             if (!Number.isInteger(entier)) {
                 alert("L'entier doit être un nombre entier");
                 return;
             }
+            // Vérification de la plage de valeurs
             if (entier < 1 || entier > 10) {
                 alert("L'entier doit être compris entre 1 et 10");
                 return;
             }
+            // Génération de la table de multiplication
             let table = "";
             for (let i = 1; i <= 10; i++) {
                 table += entier + " x " + i + " = " + entier * i + "<br>";
             }
+            // Affichage du résultat
             document.getElementById("resultatTable").innerHTML = table;
         }
 
-        // Exercice 7 
+        // Exercice 7 - Calculatrice simple
         function calculer(){
+            // Récupération de l'expression mathématique
             let expression = document.getElementById("expression").value;
+            // Évaluation de l'expression (attention: eval() peut être dangereux en production)
             let resultat = eval(expression);
+            // Affichage du résultat
             document.getElementById("resultatCalcul7").innerHTML = "Le résultat de l'expression est : " + resultat;
         }    
 
     </script>
 </head>
 <body>
-    <!-- Exercice 1 à 4-->
+    <!-- Formulaire pour le calcul de l'aire d'un rectangle -->
     <h1>Ecriture d'une fonction simple</h1>
 
     <form action="#" onsubmit="aireRectangle(); return false;">
@@ -81,8 +97,7 @@
     </form>
     <p id="resultatCalcul"></p>
 
-    <!-- Exercice 5-->
-
+    <!-- Formulaire pour le calcul du nombre de jours dans un mois -->
     <h1>Calcul du nombre de jours dans un mois</h1>
     <form action="#" onsubmit="nombreJour()">
         <label for="mois">Mois&nbsp;:</label>
@@ -93,8 +108,7 @@
     </form>
     <p id="resultatJour"></p>
 
-    <!-- Exercice 6-->
-
+    <!-- Formulaire pour la table de multiplication -->
     <h1>Afficher la table de multiplication d'un entier compris entre 1 et 10</h1>
     <form action="#" onsubmit="tableMultiplication()">
         <label for="entier">Entier&nbsp;:</label>
@@ -103,8 +117,7 @@
     </form>
     <p id="resultatTable"></p>
     
-    <!-- Exercice 7-->
-
+    <!-- Formulaire pour la calculatrice -->
     <h1>Effectuer un calcul depuis une zone de saisie</h1>
 
     <form action="#" onsubmit="calculer(); return false;">

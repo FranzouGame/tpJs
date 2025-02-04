@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TD3</title>
     <script>
+        // Fonction qui retourne le plus grand nombre entre a et b
         function monMax(a,b){
             if (a > b) {
                 return a;
@@ -12,6 +13,7 @@
             }
         }
 
+        // Fonction qui vérifie si les arguments sont des nombres avant de calculer le maximum
         function calculer(a,b){
             if (!typeof a === "number" || !typeof b === "number") {
                 return "Les deux arguments doivent être des nombres";
@@ -20,6 +22,8 @@
             }
         }
 
+        // Même fonction que calculer mais avec des noms de paramètres différents
+        // Utilisée pour le formulaire HTML
         function calculer2(saisie1, saisie2){
             if (!typeof saisie1 === "number" || !typeof saisie2 === "number") {
                 return "Les deux arguments doivent être des nombres";
@@ -28,18 +32,23 @@
             }
         }
 
+        // Fonction qui trouve le maximum entre 4 nombres
         function max4(a,b,c,d){
             return monMax(monMax(a,b),monMax(c,d));
         }
         
+        // Fonction qui trouve le maximum entre 8 nombres
+        // Utilise la fonction max4 pour optimiser le calcul
         function max8(a,b,c,d,e,f,g,h){
             return monMax(max4(a,b,c,d),max4(e,f,g,h));
         }
 
+        // Fonction qui génère un nombre aléatoire entre a et b inclus
         function random(a,b){
             return Math.floor(Math.random() * (b - a + 1)) + a;
         }
 
+        // Petit jeu qui compare un nombre donné avec un nombre aléatoire entre 1 et 10
         function petitJeu(a){
             let r = random(1,10);
             if (a === r) {
@@ -49,9 +58,11 @@
             }
         }
 
+        // Jeu de devinette avec 5 essais
+        // Indique si le nombre proposé est trop grand ou trop petit
         function autrePetitJeu(){
-            let r = random(1,10);
-            for (let index = 0; index < 5; index++) {
+            let r = random(1,10);  // Génère le nombre à deviner
+            for (let index = 0; index < 5; index++) {  // 5 tentatives maximum
                 let a = parseInt(prompt("Entrez un nombre entre 1 et 10"), 10);
                 if (a === r) {
                     return "Bravo";
@@ -66,6 +77,7 @@
     </script>
 </head>
 <body>
+    <!-- Formulaire pour comparer deux nombres -->
     <h1>Exercice 3</h1>
     <form action="#" name="f">
         <input type="number" name="saisie1" id="saisie1">
@@ -73,13 +85,16 @@
         <input type="button" value="Calculer" onclick="alert(calculer2(document.f.saisie1.value, document.f.saisie2.value))">
     </form>
     <hr>
+    
+    <!-- Formulaire pour le jeu de devinette simple -->
     <h1>Exercice 8</h1>
     <form action="#">
         <input type="number" name="a" id="a">
         <input type="button" value="confirmez" onclick="alert(petitJeu(document.getElementById('a').value))">
     </form>
 
+    <!-- Bouton pour lancer le jeu de devinette avec indices -->
     <h1>Exercice 9</h1>
-        <button onclick="alert(autrePetitJeu())">Jouer</button>
+    <button onclick="alert(autrePetitJeu())">Jouer</button>
 </body>
 </html>
